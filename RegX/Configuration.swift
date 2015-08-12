@@ -89,6 +89,17 @@ struct Configuration {
         "   (?# comments GROUP)" +
         "       (//.*)?" +
         "$"
+
+        static let dictionary = "^" +
+            "   (?# lvalue GROUP)" +
+            "       ([^:]*)" +
+            "   (?# : GROUP)" +
+            "       (\\:) " +
+            "   (?# expression GROUP)" +
+            "       ((?:[^/] | (?:/(?!/)) )*)" +
+            "   (?# comments GROUP)" +
+            "       (//.*)?" +
+        "$"
         
         
         static var propertyRegex : String {
@@ -161,6 +172,17 @@ struct Configuration {
             RegularForm(name: "Assignments",
                 pattern: Patterns.assignments,
                 shortcut: String(UnicodeScalar(NSF4FunctionKey)),
+                modifier: NSEventModifierFlags.CommandKeyMask,
+                settings: [
+                    GroupSettings(nil, 0),
+                    GroupSettings(1,   1),
+                    GroupSettings(0,   0),
+                    GroupSettings(1,   0),
+                ]
+            ),
+            RegularForm(name: "Dictionaries",
+                pattern: Patterns.dictionary,
+                shortcut: String(UnicodeScalar(NSF6FunctionKey)),
                 modifier: NSEventModifierFlags.CommandKeyMask,
                 settings: [
                     GroupSettings(nil, 0),
